@@ -47,6 +47,7 @@ public class Xuan
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
+        // Register game content
         Register.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in.

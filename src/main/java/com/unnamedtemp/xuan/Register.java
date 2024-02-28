@@ -1,5 +1,6 @@
 package com.unnamedtemp.xuan;
 
+import com.mojang.serialization.Codec;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.food.FoodProperties;
@@ -10,38 +11,43 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredItem;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.*;
+
+import java.util.function.Supplier;
 
 public final class Register {
     public static void register(IEventBus modEventBus) {
         Blocks.register(modEventBus);
         Items.register(modEventBus);
         CreativeModeTabs.register(modEventBus);
+        AttachmentTypes.register(modEventBus);
     }
 
-    private final static class Blocks {
+    public final static class Blocks {
         private static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(Xuan.MODID);
         private static final DeferredRegister.Items BLOCK_ITEMS = DeferredRegister.createItems(Xuan.MODID);
         public static final DeferredBlock<Block> EXAMPLE_BLOCK = BLOCKS.registerSimpleBlock("example_block", BlockBehaviour.Properties.of().mapColor(MapColor.STONE));
         public static final DeferredItem<BlockItem> EXAMPLE_BLOCK_ITEM = BLOCK_ITEMS.registerSimpleBlockItem("example_block", Blocks.EXAMPLE_BLOCK);
-        public static void register(IEventBus modEventBus) {
+
+        private static void register(IEventBus modEventBus) {
             BLOCKS.register(modEventBus);
             BLOCK_ITEMS.register(modEventBus);
         }
     }
-    private final static class Items {
+
+    public final static class Items {
         private static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Xuan.MODID);
         public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerSimpleItem("example_item", new Item.Properties().food(new FoodProperties.Builder()
                 .alwaysEat().nutrition(1).saturationMod(2f).build()));
-        public static void register(IEventBus modEventBus) {
+
+        private static void register(IEventBus modEventBus) {
             ITEMS.register(modEventBus);
         }
     }
-    private final static class CreativeModeTabs {
+
+    public final static class CreativeModeTabs {
         public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Xuan.MODID);
         public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
                 .title(Component.translatable("itemGroup.xuan")) //The language key for the title of your CreativeModeTab
@@ -50,15 +56,25 @@ public final class Register {
                 .displayItems((parameters, output) -> {
                     output.accept(Items.EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
                 }).build());
+
         // Add items to the vanilla tab
-        private static void addCreative(BuildCreativeModeTabContentsEvent event)
-        {
+        private static void addCreative(BuildCreativeModeTabContentsEvent event) {
             if (event.getTabKey() == net.minecraft.world.item.CreativeModeTabs.BUILDING_BLOCKS)
                 event.accept(Blocks.EXAMPLE_BLOCK_ITEM);
         }
-        public static void register(IEventBus modEventBus){
+
+        private static void register(IEventBus modEventBus) {
             CREATIVE_MODE_TABS.register(modEventBus);
             modEventBus.addListener(CreativeModeTabs::addCreative);
+        }
+    }
+
+    public final static class AttachmentTypes {
+        private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, Xuan.MODID);
+        public static final Supplier<AttachmentType<Integer>> NATURITY = ATTACHMENT_TYPES.register("naturity", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).build());
+
+        private static void register(IEventBus modEventBus) {
+            ATTACHMENT_TYPES.register(modEventBus);
         }
     }
 }
