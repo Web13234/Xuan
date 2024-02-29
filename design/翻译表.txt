@@ -1,0 +1,30 @@
+#设定
+法力-Mana
+法术-Spell
+灵气-Naturity
+五行-Element
+阴阳-Polarity
+真元-
+
+#元素
+阴-Negative
+阳-Positive
+金-Zenurik
+水-Vazarin
+木-Naramon
+火-Madurai
+土-Unairu
+
+#修行
+修行-Sādhanā
+百日筑基-Foundational Hundred Days
+筑基-v.Fundare
+　　 n.Fundaring
+　　 adj.Fundaring, Fundared
+引气入体-Indrawing Naturity Into the Body
+引气-v.Indraw
+　　 n.Indrawing
+　　 adj.Indrawing, Indrawn
+
+#物品
+洞玄经-DongXuan
