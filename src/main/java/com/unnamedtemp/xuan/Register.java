@@ -1,6 +1,6 @@
 package com.unnamedtemp.xuan;
 
-import com.mojang.serialization.Codec;
+import com.unnamedtemp.xuan.attachment.EnvNaturity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.food.FoodProperties;
@@ -71,7 +71,8 @@ public final class Register {
 
     public final static class AttachmentTypes {
         private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, Xuan.MODID);
-        public static final Supplier<AttachmentType<Integer>> NATURITY = ATTACHMENT_TYPES.register("naturity", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).build());
+        public static final Supplier<AttachmentType<EnvNaturity>> ENV_NATURITY =
+                ATTACHMENT_TYPES.register("env_naturity", () -> AttachmentType.builder(EnvNaturity::new).serialize(EnvNaturity.CODEC).build());
 
         private static void register(IEventBus modEventBus) {
             ATTACHMENT_TYPES.register(modEventBus);

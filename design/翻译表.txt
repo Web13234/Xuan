@@ -1,10 +1,12 @@
-#设定
-法力-Mana
-法术-Spell
-灵气-Naturity
-五行-Element
-阴阳-Polarity
+#术语
+灵气-naturity
+法力-mana
 真元-
+法术-spell
+五行-Elements
+阴阳-Polarity
+（五行）相生-v.generate, n.generation
+相克-v.inhibit, n.inhibition
 
 #元素
 阴-Negative
@@ -18,13 +20,13 @@
 #修行
 修行-Sādhanā
 百日筑基-Foundational Hundred Days
-筑基-v.Fundare
-　　 n.Fundaring
-　　 adj.Fundaring, Fundared
+筑基-v.fundare
+　　 n.fundaring
+　　 adj.fundaring, fundared
 引气入体-Indrawing Naturity Into the Body
-引气-v.Indraw
-　　 n.Indrawing
-　　 adj.Indrawing, Indrawn
+引气-v.indraw
+　　 n.indrawing
+　　 adj.indrawing, indrawn
 
 #物品
 洞玄经-DongXuan
