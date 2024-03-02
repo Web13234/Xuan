@@ -16,27 +16,31 @@ public class EnvNaturity {
     public static final Codec<EnvNaturity> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
                     CONC_CODEC.optionalFieldOf("conc", new HashMap<>()).orElse(new HashMap<>())
-                            .forGetter(EnvNaturity::getConc),
+                            .forGetter(EnvNaturity::getConcMap),
                     Codec.doubleRange(0d, 1d).optionalFieldOf("polarity", .5d).orElse(.5d)
                             .forGetter(EnvNaturity::getPolarity)
             ).apply(instance, EnvNaturity::new)
     );
 
-    public EnvNaturity(Map<Element, Integer> conc, double polarity) {
-        Conc = conc;
+    public EnvNaturity(Map<Element, Integer> concMap, double polarity) {
+        ConcMap = concMap;
         Polarity = polarity;
     }
 
-    public EnvNaturity() {
-        Conc = new HashMap<>();
+    public EnvNaturity(Map<Element, Integer> concMap) {
+        ConcMap = concMap;
     }
 
-    private final Map<Element, Integer> Conc;
+    public EnvNaturity() {
+        this(new HashMap<>());
+    }
+
+    private final Map<Element, Integer> ConcMap;
 
     private double Polarity = .5d;
 
     public EnvNaturity setConc(Element element, int value) {
-        Conc.put(element, value);
+        ConcMap.put(element, value);
         return this;
     }
 
@@ -48,6 +52,6 @@ public class EnvNaturity {
     }
 
     public int getConc(Element element) {
-        return Conc.getOrDefault(element, 0);
+        return ConcMap.getOrDefault(element, 0);
     }
 }
