@@ -1,11 +1,20 @@
-package com.unnamedtemp.xuan.attachment;
+package com.unnamedtemp.xuan.world;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import lombok.*;
+import com.unnamedtemp.xuan.Xuan;
+import com.unnamedtemp.xuan.data.Element;
+import lombok.Getter;
+import net.minecraft.util.profiling.jfr.event.ChunkGenerationEvent;
+import net.minecraft.world.level.chunk.LevelChunk;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.level.ChunkEvent;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.unnamedtemp.xuan.Register.*;
 
 @Getter
 public class EnvNaturity {
@@ -53,5 +62,26 @@ public class EnvNaturity {
 
     public int getConc(Element element) {
         return ConcMap.getOrDefault(element, 0);
+    }
+
+    @Mod.EventBusSubscriber(modid = Xuan.MODID)
+    private static class Event {
+        @SubscribeEvent
+        static void ChunkGenerating(ChunkGenerationEvent event) {
+
+        }
+
+        @SubscribeEvent
+        static void EnvNaturityInit(ChunkEvent.Load event) {
+            if (event.getChunk() instanceof LevelChunk chunk && !chunk.hasData(AttachmentTypes.ENV_NATURITY)) {
+                var nat = new EnvNaturity();
+                nat.setConc(Element.Zenurik, 100)
+                        .setConc(Element.Vazarin, 100)
+                        .setConc(Element.Naramon, 100)
+                        .setConc(Element.Madurai, 100)
+                        .setConc(Element.Unairu, 200);
+                chunk.setData(AttachmentTypes.ENV_NATURITY, nat);
+            }
+        }
     }
 }

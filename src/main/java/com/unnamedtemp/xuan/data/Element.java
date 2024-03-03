@@ -1,7 +1,6 @@
-package com.unnamedtemp.xuan.attachment;
+package com.unnamedtemp.xuan.data;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 public enum Element {
     Zenurik, Vazarin, Naramon, Madurai, Unairu;
