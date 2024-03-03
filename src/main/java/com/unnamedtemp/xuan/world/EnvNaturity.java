@@ -67,11 +67,6 @@ public class EnvNaturity {
     @Mod.EventBusSubscriber(modid = Xuan.MODID)
     private static class Event {
         @SubscribeEvent
-        static void ChunkGenerating(ChunkGenerationEvent event) {
-
-        }
-
-        @SubscribeEvent
         static void EnvNaturityInit(ChunkEvent.Load event) {
             if (event.getChunk() instanceof LevelChunk chunk && !chunk.hasData(AttachmentTypes.ENV_NATURITY)) {
                 var nat = new EnvNaturity();

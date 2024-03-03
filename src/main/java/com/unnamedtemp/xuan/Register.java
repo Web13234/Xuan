@@ -1,6 +1,6 @@
 package com.unnamedtemp.xuan;
 
-import com.unnamedtemp.xuan.attachment.EnvNaturity;
+import com.unnamedtemp.xuan.world.EnvNaturity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.food.FoodProperties;
@@ -47,6 +47,7 @@ public final class Register {
         }
     }
 
+    @SuppressWarnings("unused")
     public final static class CreativeModeTabs {
         public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Xuan.MODID);
         public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
@@ -69,6 +70,7 @@ public final class Register {
         }
     }
 
+    @SuppressWarnings("unused")
     public final static class AttachmentTypes {
         private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, Xuan.MODID);
         public static final Supplier<AttachmentType<EnvNaturity>> ENV_NATURITY =
