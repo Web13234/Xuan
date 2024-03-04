@@ -5,7 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.unnamedtemp.xuan.Xuan;
 import com.unnamedtemp.xuan.data.Element;
 import lombok.Getter;
-import net.minecraft.util.profiling.jfr.event.ChunkGenerationEvent;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
@@ -68,7 +67,7 @@ public class EnvNaturity {
     private static class Event {
         @SubscribeEvent
         static void EnvNaturityInit(ChunkEvent.Load event) {
-            if (event.getChunk() instanceof LevelChunk chunk && !chunk.hasData(AttachmentTypes.ENV_NATURITY)) {
+            if ((event.getChunk() instanceof LevelChunk chunk) && !chunk.hasData(AttachmentTypes.ENV_NATURITY)) {
                 var nat = new EnvNaturity();
                 nat.setConc(Element.Zenurik, 100)
                         .setConc(Element.Vazarin, 100)
