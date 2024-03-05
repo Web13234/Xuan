@@ -15,12 +15,15 @@ import java.util.Map;
 
 import static com.unnamedtemp.xuan.Register.*;
 
+//“环境灵气”数据类型，以区块为单位
 @Getter
 public class EnvNaturity {
+    //编码器，对字典
     private static final Codec<Map<Element, Integer>> CONC_CODEC = Codec.unboundedMap(
             Element.CODEC.fieldOf("element").codec(),
             Codec.INT.fieldOf("value").codec()
     );
+    //主编码器，序列化与反序列化nbt
     public static final Codec<EnvNaturity> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
                     CONC_CODEC.optionalFieldOf("conc", new HashMap<>()).orElse(new HashMap<>())
@@ -30,6 +33,7 @@ public class EnvNaturity {
             ).apply(instance, EnvNaturity::new)
     );
 
+    //构造器
     public EnvNaturity(Map<Element, Integer> concMap, double polarity) {
         ConcMap = concMap;
         Polarity = polarity;
@@ -43,8 +47,9 @@ public class EnvNaturity {
         this(new HashMap<>());
     }
 
+    //灵气浓度字典
     private final Map<Element, Integer> ConcMap;
-
+    //阴阳倾向
     private double Polarity = .5d;
 
     public EnvNaturity setConc(Element element, int value) {
@@ -63,6 +68,7 @@ public class EnvNaturity {
         return ConcMap.getOrDefault(element, 0);
     }
 
+    //区块首次加载时初始化区块的环境灵气值
     @Mod.EventBusSubscriber(modid = Xuan.MODID)
     private static class Event {
         @SubscribeEvent

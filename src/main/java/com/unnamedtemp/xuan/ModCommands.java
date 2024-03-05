@@ -17,18 +17,24 @@ import org.apache.logging.log4j.core.tools.picocli.CommandLine;
 import static com.unnamedtemp.xuan.Register.AttachmentTypes;
 
 @Mod.EventBusSubscriber
+//命令类，所有命令作为该类的子类
 public class ModCommands {
     @SubscribeEvent
+    //注册命令
     public static void OnCommandRegister(RegisterCommandsEvent event) {
+        //naturity指令
         CommandDispatcher<CommandSourceStack> dispatcher = event.getDispatcher();
         LiteralCommandNode<CommandSourceStack> naturityCmd = dispatcher.register(
                 Commands.literal("naturity")
                         .then(
                                 Commands.literal("chunk")
-                                        .requires(commandSourceStack -> {
-                                            return commandSourceStack.hasPermission(0);
-                                        })
-                                        .executes(GetChunkNaturity.getInstance())
+                                        .then(
+                                                Commands.literal("get")
+                                                        .requires(commandSourceStack -> {
+                                                            return commandSourceStack.hasPermission(0);
+                                                        })
+                                                        .executes(GetChunkNaturity.getInstance())
+                                        )
                         )
         );
     }
@@ -59,5 +65,6 @@ public class ModCommands {
             }
             return 0;
         }
+
     }
 }

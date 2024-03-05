@@ -17,6 +17,7 @@ import net.neoforged.neoforge.registries.*;
 
 import java.util.function.Supplier;
 
+//注册表母类
 public final class Register {
     public static void register(IEventBus modEventBus) {
         Blocks.register(modEventBus);
@@ -25,6 +26,7 @@ public final class Register {
         AttachmentTypes.register(modEventBus);
     }
 
+    //方块和方块物品
     public final static class Blocks {
         private static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(Xuan.MODID);
         private static final DeferredRegister.Items BLOCK_ITEMS = DeferredRegister.createItems(Xuan.MODID);
@@ -37,6 +39,7 @@ public final class Register {
         }
     }
 
+    //一般物品
     public final static class Items {
         private static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Xuan.MODID);
         public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerSimpleItem("example_item", new Item.Properties().food(new FoodProperties.Builder()
@@ -47,6 +50,7 @@ public final class Register {
         }
     }
 
+    //创造模式选项卡
     @SuppressWarnings("unused")
     public final static class CreativeModeTabs {
         public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Xuan.MODID);
@@ -70,6 +74,7 @@ public final class Register {
         }
     }
 
+    //附加数据类型
     @SuppressWarnings("unused")
     public final static class AttachmentTypes {
         private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, Xuan.MODID);
